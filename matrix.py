@@ -89,6 +89,14 @@ class Matrix:
         ret.populate(*result)
         return ret
 
+    def __pow__(self, other):
+        if self.x != self.y:
+            raise MatrixDimensionError(f"It is possible di pow only square matrix, not {self.y}x{self.x}")
+        act = self
+        for i in range(other - 1):
+            act*=self
+        return act
+
     def __repr__(self) -> str:
         ret = f'Matrice {self.y}x{self.x}:\n'
         ret += "\n".join(str(row) for row in self.main_array)
@@ -101,19 +109,6 @@ class Matrix:
                 ret += f'{v}\t'
             ret += '\n'
         return ret
-    
-    def __pow__(self, other):
-        if self.x != self.y:
-            raise MatrixDimensionError(f"It is possible di pow only square matrix, not {self.y}x{self.x}")
-        act = self
-        for i in range(other - 1):
-            act*=self
-        return act
 
 if __name__=="__main__":
-    a = Matrix()
-    a.populate([1, 2], [3, 4])
-    b = Matrix()
-    b.populate([2, 1], [-1, 3], [0, 4])
-
-    print(repr(a**2))
+    pass
