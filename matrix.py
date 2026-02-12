@@ -110,5 +110,38 @@ class Matrix:
             ret += '\n'
         return ret
 
+def is_connesso(m:  Matrix) -> bool:
+    if not isinstance(m, Matrix):
+        raise ValueError("m ought to be an instance of Matrix")
+    
+    tmp = m
+    for i in range(len(m.main_array)):
+        m += tmp**(i+1)
+    
+    value = True
+    for i in m.main_array:
+        for j in i:
+            if j == 0:
+                value = False
+    
+    return value
+
+def calcolaGradi(m: Matrix) -> list:
+    if not isinstance(m, Matrix):
+        raise ValueError("m ought to be an instance of Matrix")
+    
+    a = []
+    for i in range(len(m.main_array[0])):
+        v = 0
+        for j in m.main_array:
+            v += j[i]
+        a.append(v)
+    
+    return a
+
+
 if __name__=="__main__":
-    pass
+    a = Matrix()                                                 
+    a.populate([0, 1, 0, 0, 1, 1], [1, 0, 0, 1, 0, 1], [0, 0, 0, 1, 0, 0], [0, 1, 0, 0, 1, 0], [1, 0, 0, 1, 0, 1], [1, 1, 0, 0, 1, 0]) # Matrice di adiacenza di esempio
+    print(is_connesso(a))
+    print(calcolaGradi(a))
